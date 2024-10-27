@@ -1,10 +1,14 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Navigation from "./customer/components/Navigation/navigation";
+import HomePage from "./customer/pages/HomePage/homePage";
 
 function App() {
   return (
     <div className="App">
-      Hello Ecommerce
+      <Navigation />
+      <div>
+        <HomePage />
+      </div>
     </div>
   );
 }

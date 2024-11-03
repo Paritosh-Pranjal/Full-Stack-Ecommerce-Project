@@ -13,6 +13,7 @@ const MainCarousel = () => {
       role="presentation"
     />
   ));
+  
 
   return (
     <AliceCarousel

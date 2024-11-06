@@ -21,6 +21,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { Avatar, Button, Menu, MenuItem } from "@mui/material";
 import { purple } from "@mui/material/colors";
+import { useNavigate } from "react-router-dom";
 
 const navigation = {
   categories: [
@@ -50,15 +51,15 @@ const navigation = {
           id: "clothing",
           name: "Clothing",
           items: [
-            { name: "Tops", href: "#" },
-            { name: "Dresses", href: "#" },
-            { name: "Pants", href: "#" },
-            { name: "Denim", href: "#" },
-            { name: "Sweaters", href: "#" },
-            { name: "T-Shirts", href: "#" },
-            { name: "Jackets", href: "#" },
-            { name: "Activewear", href: "#" },
-            { name: "Browse All", href: "#" },
+            { name: "Tops", href: "top" },
+            { name: "Dresses", href: "dresses" },
+            { name: "Pants", href: "pants" },
+            { name: "Denim", href: "denim" },
+            { name: "Sweaters", href: "sweaters" },
+            { name: "T-Shirts", href: "t-shirts" },
+            { name: "Jackets", href: "jackets" },
+            { name: "Activewear", href: "activewear" },
+            { name: "Browse All", href: "browseall" },
           ],
         },
         {
@@ -112,13 +113,13 @@ const navigation = {
           id: "clothing",
           name: "Clothing",
           items: [
-            { name: "Tops", href: "#" },
-            { name: "Pants", href: "#" },
-            { name: "Sweaters", href: "#" },
-            { name: "T-Shirts", href: "#" },
-            { name: "Jackets", href: "#" },
-            { name: "Activewear", href: "#" },
-            { name: "Browse All", href: "#" },
+            { name: "Tops", href: "top" },
+            { name: "Pants", href: "pants" },
+            { name: "Sweaters", href: "sweaters" },
+            { name: "T-Shirts", href: "t-shirts" },
+            { name: "Jackets", href: "jackets" },
+            { name: "Activewear", href: "activewear" },
+            { name: "Browse All", href: "browseall" },
           ],
         },
         {
@@ -158,6 +159,8 @@ function classNames(...classes) {
 
 export default function Navigation() {
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
+
   const [openAuthModal, setOpenAuthModal] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const openUserMenu = Boolean(anchorEl);
@@ -176,6 +179,7 @@ export default function Navigation() {
   };
 
   const handleCategoryClick = (category, section, item, close) => {
+    navigate(`/${category.id}/${section.id}/${item.id}`);
     close();
   };
 
@@ -439,13 +443,13 @@ export default function Navigation() {
                                           aria-labelledby={`${section.name}-heading`}
                                           className="mt-6 space-y-6 sm:mt-4 sm:space-y-4"
                                         >
-                                          {section.items.map((item) => (
+                                          {section.items.map((item) => {
+                                            return (
                                             <li
                                               key={item.name}
                                               className="flex"
                                             >
                                               <p
-                                                href={item.href}
                                                 className="cursor-pointer hover:text-gray-800"
                                                 onClick={() =>
                                                   handleCategoryClick(
@@ -459,7 +463,7 @@ export default function Navigation() {
                                                 {item.name}
                                               </p>
                                             </li>
-                                          ))}
+                                          )})}
                                         </ul>
                                       </div>
                                     ))}
@@ -517,7 +521,9 @@ export default function Navigation() {
                         <MenuItem onClick={handleCloseUserMenu}>
                           Profile
                         </MenuItem>
-                        <MenuItem>My Orders</MenuItem>
+                        <MenuItem onClick={() => navigate("/account/order")}>
+                          My Orders
+                        </MenuItem>
                         <MenuItem>Logout</MenuItem>
                       </Menu>
                     </div>
